@@ -13,7 +13,7 @@ meet the above requirements will be omitted and no validation errors will be thr
 
 var fs = require('fs');
 var path = require('path');
-var walk = require("walk");
+var walk = require('walk');
 var beautify = require('js-beautify').js_beautify;
 var dogescript = require('dogescript');
 
@@ -27,18 +27,18 @@ function readCleanCRLF(fpath) {
 // Pop a directory off it's path (os safe)
 function dotdotSlash(filePath) {
   var str;
-  if (filePath.indexOf("/") == -1) { // windows
+  if (filePath.indexOf('/') == -1) { // windows
     str = filePath.substring(0, filePath.lastIndexOf('\\'));
   }
   else { // unix
     str = filePath.substring(0, filePath.lastIndexOf('/'));
   }
 
-  return str + "/"
+  return str + '/'
 }
 
 function getFolderName(filePath) {
-  if (filePath.indexOf("/") == -1) { // windows
+  if (filePath.indexOf('/') == -1) { // windows
     return filePath.substring(filePath.lastIndexOf('\\') + 1, filePath.length);
   }
   else { // unix
@@ -48,14 +48,15 @@ function getFolderName(filePath) {
 
 // Where dogescript tests exists
 var relDogescriptPath = 'node_modules/dogescript/test';
-var testDataPath      = dotdotSlash(__dirname) + 'assets/test-manifest/'
+var relManifestPath = 'assets/test-manifest/';
+var testDataPath      = dotdotSlash(__dirname) + relManifestPath;
 var dogeTestPath      = dotdotSlash(__dirname) + relDogescriptPath;
 var options           = { followLinks: true }; // follow symlinks
 
 if (process.argv.length < 3) {
-  console.log("Usage: " + getFolderName(process.argv[1]) + " <testFolder>\n")
+  console.log('Usage: ' + getFolderName(process.argv[1]) + ' <testFolder>\n')
   console.log(
-    "Where <testFolder> is a directory containing expect.js and source.djs within\n"
+    'Where <testFolder> is a directory containing expect.js and source.djs within\n'
   );
 
   console.log(dogeTestPath + '\n')
@@ -64,20 +65,20 @@ if (process.argv.length < 3) {
 
 // Make sure the test directory exists
 if (!fs.existsSync(dogeTestPath)){
-  throw "Tests directory not found, please connect your developmental build of dogescript with: \nnpm link <PATH_TO_DOGESCRIPT>"
+  throw 'Tests directory not found, please connect your developmental build of dogescript with: \nnpm link <PATH_TO_DOGESCRIPT>'
 }
 
 if (!fs.existsSync(testDataPath)){
   fs.mkdirSync(testDataPath);
 }
 
-function writeTestData(data) {
-  const fPath = testDataPath + data.name + ".json";
+function writeTestData(fpath, data) {
+  const fPath = testDataPath + data.name + '.json';
   const string = JSON.stringify(data);
 
   fs.truncate(fPath, 0, function() {
     fs.writeFile(fPath, string, function (err) {
-      if (err) return console.log("Error writing file: " + err);
+      if (err) return console.log('Error writing file: ' + err);
     });
   });
 }
@@ -147,8 +148,11 @@ skywalker.on('end', function() {
       expected: testFile,
     };
 
-    writeTestData(json);
+    const fPath = relManifestPath + json.name + '.json';
+    writeTestData(fPath, json);
+    process.stdout.write(".");
+    // console.log(relDogescriptPath + '/.../' + json.name + ' => ' + fPath)
   });
 
-  console.log("Successfully imported " + keys.length + " specs.")
+  console.log('\nSuccessfully imported ' + keys.length + ' specs.')
 });

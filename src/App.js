@@ -1,5 +1,5 @@
 import React from 'react';
-import parse from "dogescript";
+import parse from 'dogescript';
 
 export default class App extends React.Component {
   constructor() {

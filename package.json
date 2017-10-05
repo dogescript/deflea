@@ -4,6 +4,7 @@
   "description": "deboogering dogescript",
   "scripts": {
     "start": "node scripts/server.js",
+    "import:specs": "node scripts/import-specs.js --all",
     "lint": "eslint src"
   },
   "repository": {
@@ -35,6 +36,7 @@
   "dependencies": {
     "dogescript": "^2.3.0",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "walk": "^2.3.9"
   }
 }

@@ -48,7 +48,7 @@ function getFolderName(filePath) {
 
 // Where dogescript tests exists
 var relDogescriptPath = 'node_modules/dogescript/test';
-var relManifestPath = 'assets/test-manifest/';
+var relManifestPath = 'assets/';
 var testDataPath      = dotdotSlash(__dirname) + relManifestPath;
 var dogeTestPath      = dotdotSlash(__dirname) + relDogescriptPath;
 var options           = { followLinks: true }; // follow symlinks
@@ -68,13 +68,8 @@ if (!fs.existsSync(dogeTestPath)){
   throw 'Tests directory not found, please connect your developmental build of dogescript with: \nnpm link <PATH_TO_DOGESCRIPT>'
 }
 
-if (!fs.existsSync(testDataPath)){
-  fs.mkdirSync(testDataPath);
-}
-
-function writeTestData(fpath, data) {
-  const fPath = testDataPath + data.name + '.json';
-  const string = JSON.stringify(data);
+function writeTestData(fPath, data) {
+  var string = JSON.stringify(data);
 
   fs.truncate(fPath, 0, function() {
     fs.writeFile(fPath, string, function (err) {
@@ -135,6 +130,7 @@ skywalker.on('names', function(fpath, children) {
 skywalker.on('end', function() {
   handleErrors(testDirs)
 
+  let fObj = {}
   var keys = Object.keys(testDirs);
   keys.forEach(dir => {
     var testFilePath   = path.join(dir, 'expect.js');
@@ -142,17 +138,22 @@ skywalker.on('end', function() {
 
     var testFile = readCleanCRLF(testFilePath);
     var source   = readCleanCRLF(sourcePath);
+    const actual = dogescript(source, true);
     var json     = {
       name: getFolderName(dir),
       source: source,
       expected: testFile,
+      actual: actual,
+      passed: actual === testFile,
     };
 
-    const fPath = relManifestPath + json.name + '.json';
-    writeTestData(fPath, json);
+    fObj[json.name] = json;
     process.stdout.write(".");
     // console.log(relDogescriptPath + '/.../' + json.name + ' => ' + fPath)
   });
+
+  const fPath = relManifestPath + 'test-manifest.json';
+  writeTestData(fPath, fObj);
 
   console.log('\nSuccessfully imported ' + keys.length + ' specs.')
 });

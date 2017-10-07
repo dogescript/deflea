@@ -9,18 +9,26 @@ export default class App extends React.Component {
     }
 
     this.handleChangeForDoge = this.handleChangeForDoge.bind(this);
+    this.rundoge = this.rundoge.bind(this);
   }
 
   handleChangeForDoge(e) {
     this.setState({ jsText: parse(e.target.value) });
+  }
+  
+  rundoge()
+  {
+   var source = this.state.jsText || parse(defaultDoge);
+   console.log('executing:\n'+source);
+   window.eval(source);
   }
 
   render() {
     return (
       <div>
         <h1> dogescript in the WOWser </h1>
-
-        <p> type for great instant compile wow </p>
+        <h2> type for great instant compile wow or </h2>
+        <button style={runButton} onClick={this.rundoge}>dose click for run!</button>
         <div>
           <p style={{position: 'absolute', marginLeft: '25%'}}>Dogescript</p>
           <p style={{position: 'absolute', marginLeft: '75%'}}>Javascript</p>
@@ -28,14 +36,14 @@ export default class App extends React.Component {
         <br /><br /> <br />
         <div>
           <textarea
-            style={{resize: 'none'}}
+            style={textAreaStyle}
             onChange={this.handleChangeForDoge}
             className="dogescript"
             defaultValue={defaultDoge}
           />
           <textarea
-            style={{resize: 'none'}}
-            className="javascript"
+            style={textAreaStyle}
+  className="javascript"
             value={ this.state.jsText || parse(defaultDoge) }
           />
         </div>
@@ -68,3 +76,28 @@ wow
 
 module.exports is woof
 `
+
+
+const textAreaStyle = {
+  maxWidth: '50%',
+  'width':'49%',
+   height: '600px',
+  fontFamily: 'monospace',
+  fontSize: '16px',
+  WebkitBoxSizing: 'border-box',
+  MozBoxSizing: 'border-box',
+  boxSizing: 'border-box',
+  resize: 'none',
+  marginLeft: '10px'
+}
+
+const runButton = {
+  color: '#000!important',
+  backgroundColor: '#ffeb3b!important',
+  padding: '8px 16px',
+  verticalAlign: 'middle',
+  display: 'inline-block',
+  textAlign: 'center',
+  whiteSpace: 'nowrap',
+  border: '1px solid #ccc!important'
+}

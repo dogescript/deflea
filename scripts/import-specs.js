@@ -135,6 +135,7 @@ skywalker.on('end', function() {
   keys.forEach(dir => {
     var testFilePath   = path.join(dir, 'expect.js');
     var sourcePath     = path.join(dir, 'source.djs');
+    var skip           = path.join(dir, 'skip');
 
     var testFile = readCleanCRLF(testFilePath);
     var source   = readCleanCRLF(sourcePath);
@@ -144,7 +145,7 @@ skywalker.on('end', function() {
       source: source,
       expected: testFile,
       actual: actual,
-      passed: actual === testFile,
+      passed: actual === testFile
     };
 
     fObj[json.name] = json;

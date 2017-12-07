@@ -1,8 +1,8 @@
 import React from 'react';
 import parse from 'dogescript';
-import testManifest from "../assets/test-manifest.json"
-import CodeInput from "./components/CodeInput";
-import TestList from "./components/TestList";
+import testManifest from '../assets/test-manifest.json'
+import CodeInput from './components/CodeInput';
+import TestList from './components/TestList';
 
 export default class App extends React.Component {
   constructor() {

@@ -35,32 +35,43 @@ export default class CodeInput extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <p>Dogescript</p>
-          <p>Javascript</p>
-        </div>
-        <br /><br /> <br />
-        <div>
-          <textarea
-            style={{resize: 'none'}}
-            onChange={this.handleChangeForDoge}
-            className="dogescript"
-            defaultValue={defaultDoge}
-          />
-          <textarea
-            style={{resize: 'none'}}
-            className="javascript"
-            defaultValue={ parse(defaultDoge) }
-          />
-          { this.state.debug &&
-            <textarea
-              style={{resize: 'none'}}
-              className="javascript"
-              defaultValue={ parse(defaultDoge) }
+      <div className='code-input' style={{ float:'right', width: '75%' }} >
+          <div style={{ border: '1px solid black', width: '32%', float: 'left', marginLeft:'1%', marginBotton:'1%' }}>
+            <div style={{ textAlign: 'center', width: '100%', margin:'10px' }}>
+              <span>Dogescript Source</span>
+            </div>
+            <textarea rows='40'
+              style={{wrap: 'off',  marginLeft: '5%', width:'90%', rows:25}}
+              onChange={(e) => this.props.onChange(e)}
+              className="dogescript"
+              defaultValue={defaultDoge}
             />
+          </div>
+          { this.props.debug &&
+            <div style={{ border: '1px solid black', width: '32%', float: 'left', marginLeft:'1%', marginBotton:'1%'  }}>
+              <div style={{ textAlign: 'center', width: '100%', margin:'10px' }}>
+                  <span>Expected Javascript</span>
+              </div>
+              <textarea rows='40'
+                style={{wrap: 'off', marginLeft: '5%', width:'90%'}}
+                readOnly
+                className="expected-javascript"
+                defaultValue={ parse(defaultDoge) }
+              />
+            </div>
           }
-        </div>
+          <div style={{ border: '1px solid black', width: '32%', marginLeft:'1%', float:'left', marginBotton:'1%' }}>
+            <div style={{ textAlign: 'center', width: '100%', margin:'10px', rows:25}}>
+                <span>Actual Javascript</span>
+            </div>
+            <textarea rows='40'
+            style={{wrap: 'off',  marginLeft: '5%', width:'90%'}}
+            readOnly
+            value={this.props.jsText}
+            className="actual-javascript"
+            defaultValue= { parse(defaultDoge) }
+            />
+          </div>
       </div>
     )
   }

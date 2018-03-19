@@ -28,8 +28,9 @@ export default class App extends React.Component {
           <p> type for great instant compile wow </p>
         </div>
 
-        <CodeInput onChange={this.handleChangeForDoge} />
-        <TestList show={this.state.debug} tests={testManifest} />
+        <TestList show={this.state.debug} tests={testManifest}/>
+        <CodeInput onChange={this.handleChangeForDoge} jsText={this.state.jsText} debug={this.state.debug}/>
+
       </div>
     );
   }

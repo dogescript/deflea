@@ -18,44 +18,79 @@ export default class TestList extends React.Component {
     showPassing: true,
   }
 
+  constructor(props) {
+   super(props);
+
+   this.loadTest = this.loadTest.bind(this);
+ }
+
+  loadTest(name, test)
+  {
+    console.log('TestName:' + name);
+    console.log('Data:' + test.source);
+    let dogeArea = document.querySelector('.dogescript')
+    dogeArea.value=test.source;
+    var event = new Event('input', { bubbles: true });
+    dogeArea.dispatchEvent(event);
+    let expectedJS = document.querySelector('.expected-javascript');
+    expectedJS.value=test.expected;
+  }
+
   render() {
     const testItems = Object.entries(this.props.tests).map(([k, v]) => {
-      const className = v.passed ? 'passed' : 'failed';
+      const className = v.status;
       let icon = null;
-      if(v.passed)
+
+      switch(v.status)
       {
-        icon = <FontAwesome
+        case 'passed':
+          icon = <FontAwesome
                   name='fa-check-circle'
                   className='fa-check-circle'
                   title={className}
                   style={{
                       marginRight:'10px',
                       color:'#3b823e',
-                      fontSize:'24px'
+                      fontSize:'24px',
+                      verticalAlign:'middle'
                     }} />
-      }
-      else {
+          break;
+        case 'failed':
+          icon = <FontAwesome
+                    name='fa-times-circle'
+                    className='fa-times-circle'
+                    title={className}
+                    style={{
+                        marginRight:'10px',
+                        color:'#e23939',
+                        fontSize:'24px',
+                        verticalAlign:'middle'
+                      }} />
+          break;
+        case 'skipped':
         icon = <FontAwesome
-                  name='fa-check-circle'
+                  name='fa-exclamation-circle'
                   className='fa-exclamation-circle'
                   title={className}
                   style={{
                       marginRight:'10px',
-                      color:'red',
-                      fontSize:'24px'
+                      color:'#dcb12f',
+                      fontSize: '24px',
+                      verticalAlign:'middle'
                     }} />
+          break;
       }
 
       return (
-        <div className={ 'item ' + className } key={k}>
+        <div className={ 'item ' + className } key={k} onClick={() => this.loadTest(k,v)} style={{ margin: '2px' }}>
           {icon}
-          <span>{k}</span>
+          <span style={{ verticalAlign:'middle' }}>{k}</span>
         </div>
       )
     });
 
     return (
-      <div className='test-list'>
+      <div className='test-list' style={{ float:'left', width:'25%', background: '#dfe0e6' }}>
         {testItems}
       </div>
     )

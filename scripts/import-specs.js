@@ -140,12 +140,19 @@ skywalker.on('end', function() {
     var testFile = readCleanCRLF(testFilePath);
     var source   = readCleanCRLF(sourcePath);
     const actual = dogescript(source, true);
+
+    var status = actual === testFile ? 'passed' : 'failed';
+    if(fs.existsSync(skip))
+    {
+      status='skipped';
+    }
+
     var json     = {
       name: getFolderName(dir),
       source: source,
       expected: testFile,
       actual: actual,
-      passed: actual === testFile
+      status: status
     };
 
     fObj[json.name] = json;

@@ -23,8 +23,10 @@ rly woof is 'doges only' and cat not 'doge' or cat is 'not a doge'
     plz console.loge with {such: 'doge'}
 wow
 
-module.exports is woof
+woof woof
 `
+
+const parsedDoge = parse(defaultDoge);
 
 export default class CodeInput extends React.Component {
   static propTypes = {
@@ -56,7 +58,7 @@ export default class CodeInput extends React.Component {
                 style={{wrap: 'off', marginLeft: '5%', width:'90%'}}
                 readOnly
                 className="expected-javascript"
-                defaultValue={ parse(defaultDoge) }
+                defaultValue={parsedDoge}
               />
             </div>
           }
@@ -69,7 +71,7 @@ export default class CodeInput extends React.Component {
             readOnly
             value={this.props.jsText}
             className="actual-javascript"
-            defaultValue= { parse(defaultDoge) }
+            defaultValue= {parsedDoge}
             />
           </div>
       </div>

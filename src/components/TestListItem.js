@@ -19,7 +19,7 @@ export class TestListItem extends Component {
     const { status, name, testIdentifier } = this.props;
     return (
       <div onClick={this.handleOnClick.bind(this, testIdentifier)} >
-        <span> {statusIcons[status]} | {name} </span>
+        <span>{statusIcons[status]}</span><span>{name}</span>
       </div>
     )
   }

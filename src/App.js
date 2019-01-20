@@ -34,31 +34,19 @@ woof woof
 const parsedDoge = parse(defaultDoge);
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      jsText: '',
-      debug: Object.keys(testManifest).length !== 0,
-      tests: testManifest,
-      currentDisplay: {
-        dogescriptSource: defaultDoge,
-        expectedSource: parsedDoge,
-        javascriptSource: parsedDoge
-      }
+
+  state = {
+    jsText: '',
+    debug: Object.keys(testManifest).length !== 0,
+    tests: testManifest,
+    currentDisplay: {
+      dogescriptSource: defaultDoge,
+      expectedSource: parsedDoge,
+      javascriptSource: parsedDoge
     }
-
-    this.handleChangeForDoge = this.handleChangeForDoge.bind(this);
-  }
-
-  handleChangeForDoge(e) {
-
-    const dogetext = e.target.value;
-
-    this.setState({ jsText: parse(dogetext) });
   }
 
   updateDogescriptSource = (source) => {
-
     this.setState({
       currentDisplay: {
         dogescriptSource: source,

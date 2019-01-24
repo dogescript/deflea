@@ -38,8 +38,8 @@
     "dogescript": "^2.3.0",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
-    "react": "^0.14.6",
-    "react-dom": "^0.14.6",
+    "react": "^0.14.9",
+    "react-dom": "^0.14.9",
     "react-fontawesome": "^1.6.1",
     "walk": "^2.3.9"
   }

@@ -47,10 +47,12 @@ export default class App extends React.Component {
   }
 
   updateDogescriptSource = (source) => {
+    const newJS = parse(source);
+
     this.setState({
       currentDisplay: {
         dogescriptSource: source,
-        javascriptSource: parse(source),
+        javascriptSource: newJS,
         // set expected source to same thing
         expectedSource: this.state.currentDisplay.expectedSource
       }
@@ -59,10 +61,12 @@ export default class App extends React.Component {
 
   loadTest = (test) => {
 
+    // force a re-parse for debugging purposes
+    const newJS = parse(test.source);
     const displayCode = {
       dogescriptSource: test.source,
       expectedSource: test.expected,
-      javascriptSource: test.actual
+      javascriptSource: newJS
     }
 
     this.setState({ currentDisplay: displayCode });

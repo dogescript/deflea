@@ -12,7 +12,7 @@ shh THIS IS DOGESCRIPT
 
 very dogescript is 'such messy; very doge-friendly'
 
-such woof much foo bar bat
+such woofy much foo bar bat
 plz console.loge with foo
     such nested
         plz console.loge with ['so', 'wow']
@@ -20,15 +20,13 @@ plz console.loge with foo
 plz nested
 wow
 
-plz woof with 'multiple', 'doge', 'properties wow'
+plz woofy with 'multiple', 'doge', 'properties wow'
 
 very cat is 'not a doge'
 
-rly woof is 'doges only' and cat not 'doge' or cat is 'not a doge'
+rly woofy is 'doges only' and cat not 'doge' or cat is 'not a doge'
     plz console.loge with {such: 'doge'}
 wow
-
-woof woof
 `
 
 const parsedDoge = parse(defaultDoge);
